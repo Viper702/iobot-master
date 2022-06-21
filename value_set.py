@@ -1,4 +1,3 @@
-# foo
 debug=True
 openai_key="YOUR_OPENAI_KEY"
 tgkey="YOUR_TELEGRAM_BOTKEY"

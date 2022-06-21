@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# foo
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
