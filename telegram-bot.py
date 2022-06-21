@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 import json, os, string, sys, threading, logging, time, re, random
 import openai
+import value_set
 
 ##########
 #Settings#
@@ -10,10 +13,14 @@ import openai
 
 #You can also set these environment variables for docker
 
+# Variables
+
+# see settings.py
+
 #OpenAI API key
 aienv = os.getenv('OPENAI_KEY')
 if aienv == None:
-    openai.api_key = "YOUR OPENAI API KEY GOES HERE"
+    openai.api_key = value_set.openai_key
 else:
     openai.api_key = aienv
 print(aienv)
@@ -21,15 +28,15 @@ print(aienv)
 #Telegram bot key
 tgenv = os.getenv('TELEGRAM_KEY')
 if tgenv == None:
-    tgkey = "YOUR TELEGRAM BOT KEY GOES HERE"
+    tgkey = value_set.tgkey
 else:
     tgkey = tgenv
 print(tgenv)
 
 
-
 # Lots of console output
-debug = True
+debug = value_set.debug
+# debug = True
 
 # User Session timeout
 timstart = 300
@@ -41,8 +48,8 @@ running = False
 cache = None
 qcache = None
 chat_log = None
-botname = 'AI'
-username = 'Human'
+botname = value_set.botname
+username = value_set.username
 # Max chat log length (A token is about 4 letters and max tokens is 2048)
 max = int(3000)
 
@@ -72,8 +79,8 @@ def start(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = 'AI'
-        username = 'Human'
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Send a message!')
         return 
     else:
@@ -99,16 +106,16 @@ def reset(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = 'AI'
-        username = 'Human'
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Bot has been reset, send a message!')
         return
     if tim == 1:
         chat_log = None
         cache = None
         qcache = None
-        botname = 'AI'
-        username = 'Human'
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Bot has been reset, send a message!')
         return 
     else:
@@ -134,8 +141,8 @@ def retry(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = 'AI'
-        username = 'Human'
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Send a message!')
         return 
     else:
@@ -195,8 +202,8 @@ def wait(bot, update, botname, username, new):
                 cache = None
                 qcache = None
                 user = ""
-                username = 'Human'
-                botname = 'AI'
+                username = value_set.username
+                botname = value_set.botname
                 update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
     else:
@@ -220,15 +227,15 @@ def limit(text, max):
 
 def ask(username, botname, question, chat_log=None):
     if chat_log is None:
-        chat_log = 'The following is a chat between two users:\n\n'
+        chat_log = value_set.hiddenprompt
     now = datetime.now()
     ampm = now.strftime("%I:%M %p")
     t = '[' + ampm + '] '
     prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
     response = completion.create(
-        prompt=prompt, engine="davinci", stop=['\n'], temperature=0.9,
-        top_p=1, frequency_penalty=15, presence_penalty=2, best_of=3,
-        max_tokens=250)
+        prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
+        top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty, presence_penalty=value_set.presence_penalty, best_of=value_set.best_of,
+        max_tokens=value_set.max_tokens)
     answer = response.choices[0].text.strip()
     return answer
     # fp = 15 pp= 1 top_p = 1 temp = 0.9

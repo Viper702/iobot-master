@@ -1,3 +1,8 @@
+# telebot-base
+
+Framework for GPT-3-Chatbots on Telegram based on 
+https://github.com/xwarfare/GPT3-Telegram-Chatbot
+
 # GPT3-Telegram-Chatbot
 OpenAI chatbot for Telegram using GPT-3 with sentiment analysis safety using VaderSentiment.
 
