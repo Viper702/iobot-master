@@ -4,9 +4,4 @@ openai
 regex
 python-dotenv
 telebot
-python-telegram-bot==13.13
-vaderSentiment==3.3.2
-openai==0.20.0
-regex==2022.7.9
-python-dotenv==0.20.0
-telebot==0.0.4
+telebot
