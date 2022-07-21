@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 
 # foo
-
+import dotenv
+from os import environ as env
+from dotenv import load_dotenv
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 import json, os, string, sys, threading, logging, time, re, random
+import telebot
 import openai
 import value_set
+
+
+#load_dotenv()
+#bot = telebot.TeleBot(env["$BOT_API_KEY"])
+#openai.api_key = env["$OPENAI_API_KEY"]
 
 ##########
 #Settings#
@@ -20,15 +28,18 @@ import value_set
 # see settings.py
 
 #OpenAI API key
-aienv = os.getenv('OPENAI_KEY')
+
+aienv = os.getenv('OPENAI_API_KEY')
+
+#aienv = os.getenv('OPENAI_KEY')
 if aienv == None:
-    openai.api_key = value_set.openai_key
+    openai.api_key = OPENAI_API_KEY
 else:
     openai.api_key = aienv
 print(aienv)
 
 #Telegram bot key
-tgenv = os.getenv('TELEGRAM_KEY')
+tgenv = os.getenv('BOT_API_KEY')
 if tgenv == None:
     tgkey = value_set.tgkey
 else:
