@@ -1,4 +1,4 @@
-ython-telegram-bot
+python-telegram-bot
 VaderSentiment
 openai
 regex
