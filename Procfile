@@ -1,1 +1,1 @@
-web: python3 telegram-bot.py
+web: python3 --bind :$PORT telegram-bot.py
