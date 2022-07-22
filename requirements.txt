@@ -9,7 +9,6 @@ backports.zoneinfo
 cachetools
 certifi
 charset-normalizer
-et-xmlfile
 idn
 numpy
 openpyxl
