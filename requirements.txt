@@ -2,5 +2,5 @@ python-telegram-bot
 VaderSentiment
 openai
 regex
-python-dotenv==0.20.0
-telegram
+python-dotenv
+
