@@ -6,7 +6,6 @@ python-dotenv
 telebot
 APScheduler
 cachetools
-certifi
 idn
 numpy
 openpyxl
