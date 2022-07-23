@@ -3,3 +3,4 @@ VaderSentiment
 openai
 regex
 python-dotenv
+telebot
