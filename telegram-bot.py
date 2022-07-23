@@ -52,8 +52,8 @@ debug = value_set.debug
 # debug = True
 
 # User Session timeout
-timstart = 300
-tim = 1
+timstart = 0
+tim = 0
 
 #Defaults
 user = ""
