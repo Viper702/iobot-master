@@ -3,6 +3,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 import json, os, string, sys, threading, logging, time, re, random
 import openai
+import value_set
 
 #OpenAI API key
 aienv = os.getenv('OPENAI_KEY')

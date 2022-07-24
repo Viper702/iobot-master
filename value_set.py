@@ -1,5 +1,5 @@
 from os import environ as env
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 load_dotenv()
 
 tgkey = env["BOT_API_KEY"]
