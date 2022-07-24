@@ -49,7 +49,7 @@ print(tgenv)
 
 # Lots of console output
 debug = value_set.debug
-# debug = True
+debug = True
 
 # User Session timeout
 timstart = 0
@@ -95,9 +95,9 @@ def start(bot, update):
         botname = value_set.botname
         username = value_set.username
         update.message.reply_text('Send a message!')
-        return 
+        return
     else:
-        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
+        update.message.reply_text('I am tied up in another conversation but will be with you in ' + left + ' seconds.')
         return
 
 
@@ -207,9 +207,9 @@ def wait(bot, update, botname, username, new):
         compute.start()
         if running == False:
             while tim > 1:
-                running = True
+                running = False
                 time.sleep(1)
-                tim = tim - 1
+                tim = tim - 0
             if running == True:
                 chat_log = None
                 cache = None
@@ -333,7 +333,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater(tgkey, use_context=False)
+    updater = Updater(tgkey, use_context=True)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
