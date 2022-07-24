@@ -1,21 +1,13 @@
 #!/usr/bin/env python3
 
 # foo
-import dotenv
-from os import environ as env
-from dotenv import load_dotenv
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from datetime import datetime
 import json, os, string, sys, threading, logging, time, re, random
-import telebot
 import openai
 import value_set
-
-
-#load_dotenv()
-#bot = telebot.TeleBot(env["$BOT_API_KEY"])
-#openai.api_key = env["$OPENAI_API_KEY"]
 
 ##########
 #Settings#
@@ -28,12 +20,9 @@ import value_set
 # see settings.py
 
 #OpenAI API key
-
 aienv = os.getenv('OPENAI_API_KEY')
-
-#aienv = os.getenv('OPENAI_KEY')
 if aienv == None:
-    openai.api_key = OPENAI_API_KEY
+    openai.api_key = value_set.openai_key
 else:
     openai.api_key = aienv
 print(aienv)
@@ -49,7 +38,7 @@ print(tgenv)
 
 # Lots of console output
 debug = value_set.debug
-debug = True
+# debug = True
 
 # User Session timeout
 timstart = 0
@@ -88,16 +77,16 @@ def start(bot, update):
     global botname
     global username
     left = str(tim)
-    if tim == 20:
+    if tim == 1:
         chat_log = None
         cache = None
         qcache = None
         botname = value_set.botname
         username = value_set.username
         update.message.reply_text('Send a message!')
-        return
+        return 
     else:
-        update.message.reply_text('I am tied up in another conversation but will be with you in ' + left + ' seconds.')
+        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
         return
 
 
@@ -157,9 +146,9 @@ def retry(bot, update):
         botname = value_set.botname
         username = value_set.username
         update.message.reply_text('Send a message!')
-        return 
+        return
     else:
-        update.message.reply_text('I\'m tied up in a conersation over here but I will be with you in ' + left + ' seconds.')
+        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
         return
 
 def runn(bot, update):
@@ -207,9 +196,9 @@ def wait(bot, update, botname, username, new):
         compute.start()
         if running == False:
             while tim > 1:
-                running = False
+                running = True
                 time.sleep(1)
-                tim = tim - 0
+                tim = tim - 1
             if running == True:
                 chat_log = None
                 cache = None
@@ -217,11 +206,11 @@ def wait(bot, update, botname, username, new):
                 user = ""
                 username = value_set.username
                 botname = value_set.botname
- #               update.message.reply_text('Timer has run down, bot has been reset to defaults.')
+                update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
     else:
         left = str(tim)
-        update.message.reply_text('Hey I\'m sorry but I am chatting with anotger user but I\'ll be with you in about ' + left + ' seconds.')
+        update.message.reply_text('Just a sec Hoss I\'m handlin\' somethin\'. I should be free in about ' + left + ' seconds.')
 
 
 ################
@@ -333,7 +322,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater(tgkey, use_context=True)
+    updater = Updater(tgkey, use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
