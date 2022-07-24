@@ -2,8 +2,8 @@ from os import environ as env
 from dotenv import load_dotenv
 load_dotenv()
 
-tgkey = env["BOT_API_KEY"]
-openai_key = env["OPENAI_API_KEY"]
+#tgkey = env["BOT_API_KEY"]
+#openai_key = env["OPENAI_API_KEY"]
 
 debug=True
 #openai_key="$OPENAI_API_KEY"
