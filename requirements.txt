@@ -4,3 +4,4 @@ openai
 regex
 python-dotenv
 telebot
+pip-22.0.4

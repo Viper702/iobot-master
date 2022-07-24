@@ -88,7 +88,7 @@ def start(bot, update):
     global botname
     global username
     left = str(tim)
-    if tim == 1:
+    if tim == 20:
         chat_log = None
         cache = None
         qcache = None
@@ -159,7 +159,7 @@ def retry(bot, update):
         update.message.reply_text('Send a message!')
         return 
     else:
-        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
+        update.message.reply_text('I\'m tied up in a conersation over here but I will be with you in ' + left + ' seconds.')
         return
 
 def runn(bot, update):
@@ -217,11 +217,11 @@ def wait(bot, update, botname, username, new):
                 user = ""
                 username = value_set.username
                 botname = value_set.botname
-                update.message.reply_text('Timer has run down, bot has been reset to defaults.')
+ #               update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
     else:
         left = str(tim)
-        update.message.reply_text('Bot is in use, current cooldown is: ' + left + ' seconds.')
+        update.message.reply_text('Hey I\'m sorry but I am chatting with anotger user but I\'ll be with you in about ' + left + ' seconds.')
 
 
 ################
