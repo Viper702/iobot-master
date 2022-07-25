@@ -34,11 +34,8 @@ running = False
 cache = None
 qcache = None
 chat_log = None
-# botname = ''
-# username = ''
 botname = value_set.botname
 username = value_set.username
-
 # Max chat log length (A token is about 4 letters and max tokens is 2048)
 #max = int(3000)
 
@@ -69,15 +66,13 @@ def start(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        #        botname = ''
-        #        username = ''
         botname = value_set.botname
         username = value_set.username
 
         update.message.reply_text("Hi, I\'ll be with you shortly.")
         return
     else:
-        update.message.reply_text("I\'m in another conversation but will get back to you in " + left + " seconds?")
+        update.message.reply_text("I\'m in another conversation but will get back to you in " + left + " seconds")
         return
 
 
@@ -110,7 +105,7 @@ def reset(bot, update):
         qcache = None
         botname = value_set.botname
         username = value_set.username
-        update.message.reply_text("Bot has been reset, send a message\!")
+        update.message.reply_text("Bot has been reset, send a message!")
         return
     else:
         update.message.reply_text("I\'m in another conversation and wil be with you in " + left + " seconds.")
@@ -150,7 +145,7 @@ def retry(bot, update):
         update.message.reply_text("Send a message!")
         return
     else:
-        update.message.reply_text("I'm in another conversation and wil be with you in " + left + " seconds.")
+        update.message.reply_text("I\'m in another conversation and wil be with you in " + left + " seconds.")
         return
 
 
@@ -180,18 +175,8 @@ def runn(bot, update):
             update.message.reply_text(e)
         return
     else:
-        comput = threading.Thread(
-            target=interact,
-            args=(
-                bot,
-                update,
-                botname,
-                username,
-                new,
-            ),
-        )
+ comput = threading.Thread(target=wait, args=(bot, update, botname, username, new,))
         comput.start()
-
 
 def wait(bot, update, botname, username, new):
     global user
