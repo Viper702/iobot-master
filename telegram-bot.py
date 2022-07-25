@@ -36,8 +36,11 @@ running = False
 cache = None
 qcache = None
 chat_log = None
-botname = 'Io'
-username = 'Your name here'
+#botname = ''
+#username = ''
+botname = value_set.botname
+username = value_set.username
+
 # Max chat log length (A token is about 4 letters and max tokens is 2048)
 max = int(3000)
 
@@ -67,12 +70,15 @@ def start(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = ''
-        username = ''
-        update.message.reply_text('Hi')
+#        botname = ''
+#        username = ''
+         botname = value_set.botname
+         username = value_set.username
+
+        update.message.reply_text('Hi, I\'ll be with you shortly.')
         return 
     else:
-        update.message.reply_text('I\'m in another conversation and wil be with you in ' + left + ' seconds?')
+        update.message.reply_text('I\'m in another conversation but will get back to you in ' + left + ' seconds?')
         return
 
 
@@ -94,16 +100,20 @@ def reset(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = ''
-        username = ''
+#        botname = ''
+#        username = ''
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Bot has been reset, send a message!')
         return
     if tim == 1:
         chat_log = None
         cache = None
         qcache = None
-        botname = ''
-        username = ''
+#        botname = ''
+#        username = ''
+        botname = value_set.botname
+        username = value_set.username
         update.message.reply_text('Bot has been reset, send a message!')
         return 
     else:
@@ -129,8 +139,11 @@ def retry(bot, update):
         chat_log = None
         cache = None
         qcache = None
-        botname = ''
-        username = ''
+#        botname = ''
+#        username = ''
+        botname = value_set.botname
+        username = value_set.username
+
         update.message.reply_text('Send a message!')
         return 
     else:
@@ -190,13 +203,16 @@ def wait(bot, update, botname, username, new):
                 cache = None
                 qcache = None
                 user = ""
-                username = ''
-                botname = ''
+#                username = ''
+#                botname = ''
+                 username = value_set.username
+                 botname = value_set.botname
+
                 update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
     else:
         left = str(tim)
-        update.message.reply_text('I\'m in another conversation and wil be with you in ' + left + ' seconds?')
+        update.message.reply_text('I\'m in another conversation and will be with you in ' + left + ' seconds?')
 
 
 ################
@@ -212,18 +228,31 @@ def limit(text, max):
     else:
         return text
 
+################ define ask
+#def ask(username, botname, question, chat_log=None):
+#    if chat_log is None:
+#        chat_log = 'The following is a chat between two users:\n\n'
+#    now = datetime.now()
+#    ampm = now.strftime("%I:%M %p")
+#    t = '[' + ampm + '] '
+
 
 def ask(username, botname, question, chat_log=None):
     if chat_log is None:
-        chat_log = 'The following is a chat between two users:\n\n'
+        chat_log = value_set.hiddenprompt
     now = datetime.now()
     ampm = now.strftime("%I:%M %p")
     t = '[' + ampm + '] '
-    prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
-    response = completion.create(
-        prompt=prompt, engine="text-davinci-001", stop=['\n'], temperature=0.9,
-        top_p=1, frequency_penalty=0, presence_penalty=0.6, best_of=3,
-        max_tokens=250)
+
+#    prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
+#    response = completion.create(
+#        prompt=prompt, engine="text-davinci-001", stop=['\n'], temperature=0.9,
+#        top_p=1, frequency_penalty=0, presence_penalty=0.6, best_of=3,
+#        max_tokens=250)
+        prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
+        top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty, presence_penalty=value_set.presence_penalty, 
+        best_of=value_set.best_of,
+        max_tokens=value_set.max_tokens)
     answer = response.choices[0].text.strip()
     return answer
     # fp = 15 pp= 1 top_p = 1 temp = 0.9
