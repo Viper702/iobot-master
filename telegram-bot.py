@@ -35,10 +35,9 @@ else:
     tgkey = tgenv
 print(tgenv)
 
-
 # Lots of console output
 debug = value_set.debug
-# debug = True
+debug = True
 
 # User Session timeout
 timstart = 300
