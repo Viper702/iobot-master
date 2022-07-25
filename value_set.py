@@ -8,8 +8,8 @@ load_dotenv()
 debug=True
 #openai_key="$OPENAI_API_KEY"
 #tgkey="$BOT_API_KEY"
-botname = env["BOTNAME"]
-username = 'USERNAME'
+botname = env["Io"]
+username = 'USER_ID'
 engine = 'code-davinci-002'
 stop=['\n',username]
 temperature=0.9
