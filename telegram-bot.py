@@ -253,7 +253,7 @@ def wait(bot, update, botname, username, new):
     else:
         left = str(tim)
         update.message.reply_text(
-            "I'm in another conversation and will be with you in " + left + " seconds?"
+            "I\'m in another conversation and will be with you in " + left + " seconds?"
         )
 
 
@@ -299,29 +299,32 @@ def ask(username, botname, question, chat_log=None):
     t = "[" + ampm + "] "
     prompt = f"{chat_log}{t}{username}: {question}\n{t}{botname}:"
     response = completion.create(
-        prompt=prompt,
-        engine=value_set.engine,
-        stop=value_set.stop,
-        temperature=value_set.temperature,
-        top_p=value_set.top_p,
-        frequency_penalty=value_set.frequency_penalty,
-        presence_penalty=value_set.presence_penalty,
+        prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
+        top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty,presence_penalty=value_set.presence_penalty, 
         best_of=value_set.best_of,
-        max_tokens=value_set.max_tokens,
-    )
+        max_tokens=value_set.max_tokens)
     answer = response.choices[0].text.strip()
     return answer
     # fp = 15 pp= 1 top_p = 1 temp = 0.9
 
 
+#def append_interaction_to_chat_log(username, botname, question, answer, chat_log=None):
+#    if chat_log is None:
+#        chat_log = "The following is a chat between two users:\n\n"
+#    chat_log = limit(chat_log, max)
+#    now = datetime.now()
+#    ampm = now.strftime("%I:%M %p")
+#    t = "[" + ampm + "] "
+#    return f"{chat_log}{t}{username}: {question}\n{t}{botname}: {answer}\n"
+
 def append_interaction_to_chat_log(username, botname, question, answer, chat_log=None):
     if chat_log is None:
-        chat_log = "The following is a chat between two users:\n\n"
+        chat_log = 'The following is a chat between two users:\n\n'
     chat_log = limit(chat_log, max)
     now = datetime.now()
     ampm = now.strftime("%I:%M %p")
-    t = "[" + ampm + "] "
-    return f"{chat_log}{t}{username}: {question}\n{t}{botname}: {answer}\n"
+    t = '[' + ampm + '] '
+    return f'{chat_log}{t}{username}: {question}\n{t}{botname}: {answer}\n'
 
 
 def interact(bot, update, botname, username, new):
@@ -338,9 +341,7 @@ def interact(bot, update, botname, username, new):
             print("Sentiment of input:\n")
             print(vs)
         if vs["neg"] > 1:
-            update.message.reply_text(
-                "Hey look this is all going way south here! Lets talk about something else or now."
-            )
+            update.message.reply_text("Lets talk about something else, okay?")
             return
     if new == True:
         if debug == True:
@@ -369,14 +370,10 @@ def interact(bot, update, botname, username, new):
             print("Sentiment of output:\n")
             print(vs)
         if vs["neg"] > 1:
-            update.message.reply_text(
-                "I do not think I could provide you a good answer for this. Use /retry to get positive output."
-            )
+            update.message.reply_text("I do not think I could provide you a good answer for this. Use /retry to get positive output.")
             return
         update.message.reply_text(out)
-        chat_log = append_interaction_to_chat_log(
-            username, botname, question, answer, chat_log
-        )
+        chat_log = append_interaction_to_chat_log(username, botname, question, answer, chat_log)
         if debug == True:
             #### Print the chat log for debugging
             print("-----PRINTING CHAT LOG-----")
