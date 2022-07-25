@@ -235,6 +235,17 @@ def limit(text, max):
 #    now = datetime.now()
 #    ampm = now.strftime("%I:%M %p")
 #    t = '[' + ampm + '] '
+#    prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
+#    response = completion.create(
+#        prompt=prompt, engine="text-davinci-001", stop=['\n'], temperature=0.9,
+#        top_p=1, frequency_penalty=0, presence_penalty=0.6, best_of=3,
+#        max_tokens=250)
+#    prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
+#    top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty, presence_penalty=value_set.presence_penalty, best_of=value_set.best_of,
+#    max_tokens=value_set.max_tokens)
+#    answer = response.choices[0].text.strip()
+#    return answer
+#    # fp = 15 pp= 1 top_p = 1 temp = 0.9
 
 
 def ask(username, botname, question, chat_log=None):
@@ -243,12 +254,8 @@ def ask(username, botname, question, chat_log=None):
     now = datetime.now()
     ampm = now.strftime("%I:%M %p")
     t = '[' + ampm + '] '
-
-#    prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
-#    response = completion.create(
-#        prompt=prompt, engine="text-davinci-001", stop=['\n'], temperature=0.9,
-#        top_p=1, frequency_penalty=0, presence_penalty=0.6, best_of=3,
-#        max_tokens=250)
+    prompt = f'{chat_log}{t}{username}: {question}\n{t}{botname}:'
+    response = completion.create(
         prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
         top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty, presence_penalty=value_set.presence_penalty, 
         best_of=value_set.best_of,
@@ -256,6 +263,8 @@ def ask(username, botname, question, chat_log=None):
     answer = response.choices[0].text.strip()
     return answer
     # fp = 15 pp= 1 top_p = 1 temp = 0.9
+
+
 
 def append_interaction_to_chat_log(username, botname, question, answer, chat_log=None):
     if chat_log is None:
