@@ -68,9 +68,8 @@ def start(bot, update):
         qcache = None
         botname = value_set.botname
         username = value_set.username
-
-        update.message.reply_text("Hi, I\'ll be with you shortly.")
-        return
+        update.message.reply_text('Send a message!')
+        return 
     else:
         update.message.reply_text("I\'m in another conversation but will get back to you in " + left + " seconds.")
         return
@@ -80,7 +79,6 @@ def help(bot, update):
     """Send a message when the command /help is issued."""
     update.message.reply_text(
         '[/reset] resets the conversation,\n [/retry] retries the last output,\n [/username name] sets your name to the bot, default is "Human",\n [/botname name] sets the bots character name, default is "AI"')
-
 
 def reset(bot, update):
     """Send a message when the command /reset is issued."""
@@ -97,7 +95,7 @@ def reset(bot, update):
         qcache = None
         botname = value_set.botname
         username = value_set.username
-        update.message.reply_text("Bot has been reset, send a message!")
+        update.message.reply_text('Bot has been reset, send a message!')
         return
     if tim == 1:
         chat_log = None
@@ -105,12 +103,11 @@ def reset(bot, update):
         qcache = None
         botname = value_set.botname
         username = value_set.username
-        update.message.reply_text("Bot has been reset, send a message!")
-        return
+        update.message.reply_text('Bot has been reset, send a message!')
+        return 
     else:
-        update.message.reply_text("I\'m in another conversation and wil be with you in " + left + " seconds.")
+        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
         return
-
 
 def retry(bot, update):
     """Send a message when the command /retry is issued."""
@@ -123,7 +120,7 @@ def retry(bot, update):
     left = str(tim)
     if user == update.message.from_user.id:
         new = True
-        comput = threading.Thread(target=wait,args(bot,update,botname,username,new,),)
+        comput = threading.Thread(target=wait, args=(bot, update, botname, username, new,))
         comput.start()
         return
     if tim == 1:
@@ -132,11 +129,10 @@ def retry(bot, update):
         qcache = None
         botname = value_set.botname
         username = value_set.username
-
-        update.message.reply_text("Send a message!")
-        return
+        update.message.reply_text('Send a message!')
+        return 
     else:
-        update.message.reply_text("I\'m in another conversation and wil be with you in " + left + " seconds.")
+        update.message.reply_text('Bot is currently in use, make sure to set your settings when their timer runs down. ' + left + ' seconds.')
         return
 
 
@@ -148,7 +144,7 @@ def runn(bot, update):
     if "/botname " in update.message.text:
         try:
             string = update.message.text
-            charout = string.split("/botname ", 1)[1]
+            charout = string.split("/botname ",1)[1]
             botname = charout
             response = "The bot character name set to: " + botname
             update.message.reply_text(response)
@@ -158,7 +154,7 @@ def runn(bot, update):
     if "/username " in update.message.text:
         try:
             string = update.message.text
-            userout = string.split("/username ", 1)[1]
+            userout = string.split("/username ",1)[1]
             username = userout
             response = "Your character name set to: " + username
             update.message.reply_text(response)
@@ -177,12 +173,12 @@ def wait(bot, update, botname, username, new):
     global tim
     global running
     if user == "":
-       user = update.message.from_user.id
+        user = update.message.from_user.id
     if user == update.message.from_user.id:
-       tim = timstart
-       compute = threading.Thread(target=interact,args=(bot,update,botname,username,new,),)
-       compute.start()
-    if running == False:
+        tim = timstart
+        compute = threading.Thread(target=interact, args=(bot, update, botname, username, new,))
+        compute.start()
+        if running == False:
             while tim > 1:
                 running = True
                 time.sleep(1)
@@ -194,13 +190,11 @@ def wait(bot, update, botname, username, new):
                 user = ""
                 username = value_set.username
                 botname = value_set.botname
-
-                update.message.reply_text("Timer has run down, bot has been reset to defaults.")
+                update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
     else:
         left = str(tim)
-        update.message.reply_text("I\'m in another conversation and will be with you in " + left + " seconds?")
-
+        update.message.reply_text('Bot is in use, current cooldown is: ' + left + ' seconds.')
 
 ################
 # Main functions#
@@ -224,7 +218,7 @@ def ask(username, botname, question, chat_log=None):
     prompt = f"{chat_log}{t}{username}: {question}\n{t}{botname}:"
     response = completion.create(
         prompt=prompt, engine=value_set.engine, stop=value_set.stop, temperature=value_set.temperature,
-        top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty,presence_penalty=value_set.presence_penalty, 
+        top_p=value_set.top_p, frequency_penalty=value_set.frequency_penalty,presence_penalty=value_set.presence_penalty,
         best_of=value_set.best_of,
         max_tokens=value_set.max_tokens)
     answer = response.choices[0].text.strip()
