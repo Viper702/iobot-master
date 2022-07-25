@@ -222,7 +222,8 @@ def wait(bot, update, botname, username, new):
                 tim = tim - 1
             if running == True:
                 chat_log = None
-                cache = None                qcache = None
+                cache = None
+                qcache = None
                 user = ""
                 username = value_set.username
                 botname = value_set.botname
