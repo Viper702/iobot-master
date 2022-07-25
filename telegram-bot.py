@@ -4,7 +4,7 @@ from datetime import datetime
 import json, os, string, sys, threading, logging, time, re, random
 import openai
 import value_set
-import rndm-delay
+#import rndm-delay
 # OpenAI API key
 aienv = os.getenv("OPENAI_KEY")
 if aienv == None:
@@ -40,7 +40,7 @@ botname = value_set.botname
 username = value_set.username
 
 # Max chat log length (A token is about 4 letters and max tokens is 2048)
-max = int(3000)
+#max = int(3000)
 
 
 # Enable logging
