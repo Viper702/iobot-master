@@ -72,7 +72,7 @@ def start(bot, update):
         update.message.reply_text("Hi, I\'ll be with you shortly.")
         return
     else:
-        update.message.reply_text("I\'m in another conversation but will get back to you in " + left + " seconds")
+        update.message.reply_text("I\'m in another conversation but will get back to you in " + left + " seconds.")
         return
 
 
@@ -123,16 +123,7 @@ def retry(bot, update):
     left = str(tim)
     if user == update.message.from_user.id:
         new = True
-        comput = threading.Thread(
-            target=wait,
-            args=(
-                bot,
-                update,
-                botname,
-                username,
-                new,
-            ),
-        )
+        comput = threading.Thread(target=wait,args(bot,update,botname,username,new,),)
         comput.start()
         return
     if tim == 1:
@@ -175,7 +166,7 @@ def runn(bot, update):
             update.message.reply_text(e)
         return
     else:
- comput = threading.Thread(target=wait, args=(bot, update, botname, username, new,))
+        comput = threading.Thread(target=wait, args=(bot, update, botname, username, new,))
         comput.start()
 
 def wait(bot, update, botname, username, new):
