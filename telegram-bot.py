@@ -177,21 +177,12 @@ def wait(bot, update, botname, username, new):
     global tim
     global running
     if user == "":
-        user = update.message.from_user.id
+       user = update.message.from_user.id
     if user == update.message.from_user.id:
-        tim = timstart
-        compute = threading.Thread(
-            target=interact,
-            args=(
-                bot,
-                update,
-                botname,
-                username,
-                new,
-            ),
-        )
-        compute.start()
-        if running == False:
+       tim = timstart
+       compute = threading.Thread(target=interact,args=(bot,update,botname,username,new,),)
+       compute.start()
+    if running == False:
             while tim > 1:
                 running = True
                 time.sleep(1)
