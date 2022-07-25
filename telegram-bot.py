@@ -72,8 +72,8 @@ def start(bot, update):
         qcache = None
 #        botname = ''
 #        username = ''
-         botname = value_set.botname
-         username = value_set.username
+        botname = value_set.botname
+        username = value_set.username
 
         update.message.reply_text('Hi, I\'ll be with you shortly.')
         return 
@@ -205,8 +205,8 @@ def wait(bot, update, botname, username, new):
                 user = ""
 #                username = ''
 #                botname = ''
-                 username = value_set.username
-                 botname = value_set.botname
+                username = value_set.username
+                botname = value_set.botname
 
                 update.message.reply_text('Timer has run down, bot has been reset to defaults.')
                 running = False
